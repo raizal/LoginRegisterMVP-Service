@@ -19,6 +19,7 @@ class UserController extends BaseController
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
             'email' => 'required|email|max:100',
+            'gender' => 'required|max:1',
             'password' => 'required'
         ]);
 
@@ -28,7 +29,12 @@ class UserController extends BaseController
 
         $userData['name'] = $request->request->get('name');
         $userData['email'] = $request->request->get('email');
+        $userData['gender'] = $request->request->get('gender');
         $userData['password'] = $request->request->get('password');
+
+        if ($userData['gender'] != "M" && $userData['gender'] != "F") {
+            $this->returnJsonErrorDataNotValid("Gender must be 'M' of 'F'");
+        }
 
         $user = new User();
         list($status, $message, $technicalMessage) = $user->register($userData);

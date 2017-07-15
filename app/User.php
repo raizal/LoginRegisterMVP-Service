@@ -10,15 +10,15 @@ class User extends Model
 {
     const CODE_SUCCESS = 1;
     const CODE_ERROR = 0;
-    const RESULT_REGISTRATION_SUCCESS = "Registrasi berhasil";
-    const RESULT_REGISTRATION_FAILED = "Registrasi gagal";
-    const RESULT_WRONG_PASSWORD = "Password tidak sesuai";
-    const RESULT_LOGIN_FAILED = "Login gagal";
-    const RESULT_LOGIN_SUCCESS = "Login berhasil";
-    const RESULT_LOGOUT_FAILED = "Logout gagal";
-    const RESULT_LOGOUT_SUCCESS = "Logout berhasil";
-    const RESULT_USER_NOT_FOUND = "Akun tidak ditemukan";
-    const RESULT_TOKEN_NOT_FOUND = "Token tidak ditemukan";
+    const RESULT_REGISTRATION_SUCCESS = "Registration success";
+    const RESULT_REGISTRATION_FAILED = "Registration success";
+    const RESULT_WRONG_PASSWORD = "Password didn't match";
+    const RESULT_LOGIN_FAILED = "Login failed";
+    const RESULT_LOGIN_SUCCESS = "Login success";
+    const RESULT_LOGOUT_FAILED = "Logout failed";
+    const RESULT_LOGOUT_SUCCESS = "Logout success";
+    const RESULT_USER_NOT_FOUND = "Account not found";
+    const RESULT_TOKEN_NOT_FOUND = "Auth token not found";
 
     protected $table = 'users';
 
@@ -35,6 +35,7 @@ class User extends Model
             $id = DB::table($this->table)->insertGetId(
                 ['name' => $userData['name'],
                     'email' => $userData['email'],
+                    'gender' => $userData['gender'],
                     'encrypted_password' => hash('sha256', $salt . hash('md5', $userData['password'] . $salt)),
                     'salt' => $salt,
                     'is_login' => FALSE,
